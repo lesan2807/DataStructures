@@ -28,7 +28,9 @@ template <typename T>
 class llist{
 	public:
 		llist(){
-      nil = new llnode<T>('0', nil, nil); //Cambiar
+      nil = new llnode<T>(NULL, NULL, NULL);
+      nil->prev = nil;
+      nil->next = nil;
 		};
 			// Constructor (crea una lista vacia)
 
@@ -37,20 +39,19 @@ class llist{
 			// Constructor copia
 
 		~llist(){
-      llnode<T> *P = nil->prev->prev;
-      while(P){
-        std::cout << "Erasing" << std::endl;
-        delete P->next;
-        P = P->prev;
+      llnode<T> *p = nil;
+      llnode<T> *q = nil->next;
+      while(q){
+        
       }
-
+      std::cout << "Deleted" << std::endl;
 		};
 			// Destructor (borra la lista)
 
 		llnode<T>* listSearch(const T& k){
       llnode<T> *p;
       p = nil->next;
-      while(p != nil && p.key != k){
+      while(p != nil && p->key != k){
         p = p->next;
       }
       return p;
@@ -59,24 +60,20 @@ class llist{
             // apuntador al nodo que la contiene; sino devuelve NULL.
 
 		void listInsert(llnode<T>* x){
-      x->next = nil->next;
-      nil->next = x;
+      if(nil->next == nil){
+        nil->prev = x;
+      }
       nil->next->prev = x;
+      x->next = nil->next;
       x->prev = nil;
-
-		};
+      nil->next = x;
+    }
 			// Inserta el nodo x en la lista.
 
 		llnode<T>* listDelete(llnode<T>* x){
-      if(x->prev == nil){
-        nil->next = x->next;
-        x->next->prev = nil;
-      }
-      else{
-        x->prev->next = x->next;
-        x->next->prev = x->prev;
-      }
-      return &x;
+      x->prev->next = x->next;
+      x->next->prev = x->prev;
+      return x;
 		};
 			// Saca de la lista la llave contenida en el nodo apuntado por x.
 			// Devuelve la direccion del nodo eliminado para que se pueda
@@ -88,7 +85,7 @@ class llist{
 		// Devuelve el nodo centinela. (Para efectos de revision de la tarea).
 
     void print(){
-      llnode<T> * P = nil -> next;
+      llnode<T> * P = nil;
       while(P){
         std::cout << P->key << std::endl;
         P = P->next;
