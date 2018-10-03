@@ -39,12 +39,7 @@ class llist{
 			// Constructor copia
 
 		~llist(){
-      llnode<T> *p = nil;
-      llnode<T> *q = nil->next;
-      while(q){
-        
-      }
-      std::cout << "Deleted" << std::endl;
+      delete nil;
 		};
 			// Destructor (borra la lista)
 
@@ -88,7 +83,7 @@ class llist{
       llnode<T> * P = nil;
       while(P){
         std::cout << P->key << std::endl;
-        P = P->next;
+        P = P->prev;
       }
     }
 

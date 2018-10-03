@@ -10,8 +10,7 @@ int main(int argc, char const *argv[]) {
     lista.listInsert(node);
     tes++;
   }
-  llnode<char> * lis = lista.listSearch('K');
-  cout << lis->key << endl;
+  lista.listDelete(lista.listSearch('K'));
   //lista.print();
   return 0;
 }
