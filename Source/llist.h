@@ -28,18 +28,26 @@ template <typename T>
 class llist{
 	public:
 		llist(){
-      nil = new llnode<T>(NULL, NULL, NULL);
+      nil = new llnode<T>(NULL);
       nil->prev = nil;
       nil->next = nil;
-		};
+    };
 			// Constructor (crea una lista vacia)
 
 		llist(const llist<T>& obj){
+      nil = new llnode<T>(obj.getNil()->key);
+      nil->next = nil;
+      nil->prev = nil;
+      llnode<T> *p = obj.getNil()->prev;
+      while(p != obj.getNil()){
+        listInsert(new llnode<T>(p->key));
+        p = p->prev;
+      }
 		};
 			// Constructor copia
 
 		~llist(){
-      delete nil;
+      destroy(nil);
 		};
 			// Destructor (borra la lista)
 
@@ -52,7 +60,7 @@ class llist{
       return p;
 		};
 			// Busca la llave iterativamente. Si la encuentra, devuelve un
-            // apuntador al nodo que la contiene; sino devuelve NULL.
+      // apuntador al nodo que la contiene; sino devuelve NULL.
 
 		void listInsert(llnode<T>* x){
       if(nil->next == nil){
@@ -80,17 +88,22 @@ class llist{
 		// Devuelve el nodo centinela. (Para efectos de revision de la tarea).
 
     void print(){
-      llnode<T> * P = nil;
-      while(P){
+      llnode<T> * P = nil->next;
+      while(P!= nil){
         std::cout << P->key << std::endl;
-        P = P->prev;
+        P = P->next;
       }
     }
 
 		private:
 
 		llnode<T> *nil;	    // nodo centinela
-
+    void destroy(llnode<T> * p){
+      if(p->next != nil){
+        destroy(p->next);
+      }
+      delete p;
+    }
 };
 
 #endif	// LINKED_LIST_llist
