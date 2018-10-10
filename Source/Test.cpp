@@ -24,14 +24,14 @@ int main(int argc, char const *argv[]) {
   bs.treeInsert(f);
   bs.treeInsert(g);
 
-  //tree<int> bs2(bs);
+  tree<int> bs2(bs);
   cout << bs.treeDelete(bs.treeSearch(9))->key << endl;
   cout << bs.treeDelete(bs.treeSearch(12))->key << endl;
   cout << bs.treeDelete(bs.treeSearch(13))->key << endl;
 
-  //bs.print();
-  //cout << endl;
-  //bs2.print();
+  bs.print();
+  cout << endl;
+  bs2.print();
 
 
 return 0;

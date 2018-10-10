@@ -47,7 +47,12 @@ class llist{
 			// Constructor copia
 
 		~llist(){
-      destroy(nil);
+      llnode<T> *p = nil->next;
+      while(p != nil){
+        llnode<T> *q = p->next;
+        delete p;
+        p = q;
+      }
 		};
 			// Destructor (borra la lista)
 
@@ -57,6 +62,7 @@ class llist{
       while(p != nil && p->key != k){
         p = p->next;
       }
+      p = p == nil ? NULL : p;
       return p;
 		};
 			// Busca la llave iterativamente. Si la encuentra, devuelve un
@@ -88,22 +94,16 @@ class llist{
 		// Devuelve el nodo centinela. (Para efectos de revision de la tarea).
 
     void print(){
-      llnode<T> * P = nil->next;
+      llnode<T> * P = nil->prev;
       while(P!= nil){
         std::cout << P->key << std::endl;
-        P = P->next;
+        P = P->prev;
       }
     }
 
 		private:
 
 		llnode<T> *nil;	    // nodo centinela
-    void destroy(llnode<T> * p){
-      if(p->next != nil){
-        destroy(p->next);
-      }
-      delete p;
-    }
 };
 
 #endif	// LINKED_LIST_llist

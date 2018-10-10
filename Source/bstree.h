@@ -135,17 +135,36 @@ class tree{
       // del nodo x. Si no existe tal nodo devuelve NULL.
 
 		void treeInsert(node<T>* z){
-      if(root){
-        insert(root, z);
+      node<T> *y = NULL;
+      node<T> *x = root;
+      while (x != NULL){
+        y = x;
+        x = z->key < x->key ? x->left : x->right;
       }
-      else{
+      z->p = y;
+      if(!y){
         root = z;
       }
+      else if(z->key < y->key) y->left = z;
+      else y->right = z;
     }
 		// Inserta el nodo z en la posicion que le corresponde en el arbol.
 
 		node<T>* treeDelete(node<T>* z){
-
+      if(!z->left) transplant(z, z->right);
+      else if(!z->right) transplant(z, z->left);
+      else{ 
+        node<T> *y = minimal(z->right);
+        if(y->p != z){
+          transplant(y, y->right);
+          y->right = z->right;
+          y->right->p = y;
+        }
+        transplant(z, y);
+        y->left = z->left;
+        y->left->p = y;
+      }
+      return z;
     }
 			// Saca del arbol la llave contenida en el nodo apuntado por z.
 			// Devuelve la direccion del nodo eliminado para que se pueda
@@ -175,21 +194,11 @@ class tree{
       }
     }
 
-    void insert(struct node<T>* n, node<T>* z){
-      if(z->key < n->key && n->left){
-        insert(n->left, z);
-      }
-      else if(z->key < n->key && !n->left){
-        z->p = n;
-        n->left = z;
-      }
-      else if(z->key > n->key && n->right){
-        insert(n->right, z);
-      }
-      else if(z->key > n->key && !n->right){
-        z->p = n;
-        n->right = z;
-      }
+    void transplant(node<T> *u, node<T> *v){
+      if(!u->p) root = v;
+      else if(u == u->p->left) u->p->left = v;
+      else u->p->right = v;
+      if(v) v->p = u->p;
     }
 
     void rprint(node<T>* n){
@@ -232,15 +241,6 @@ class tree{
         rCopy(n->right, m);
       }
     }
-
-  void rDelete(node<T> *z){systemsys
-      if(!z->left){
-
-      }
-      else if(!z->right){
-
-      }
-
-    }
+  
   };
 #endif	// BINARY_SEARCH_Tree
