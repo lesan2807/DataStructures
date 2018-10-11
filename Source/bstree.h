@@ -179,6 +179,12 @@ class tree{
       rprint(root);
     }
 
+    //Metodo de insercion rapida, creado para un test, no se supone que se use
+    void quickInser(node<T> *p, node<T> *h){
+      h->p = p;
+      p->right = h;
+    }
+
   private:
 		node<T> *root;	// root of the Tree
 

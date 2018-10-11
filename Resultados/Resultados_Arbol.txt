@@ -1,0 +1,8 @@
+cantidad de busquedas random: 449230
+cantidad de busquedas exitosas: 176964
+cantidad de busquedas fallidas: 272266
+Tiempo: 10s
+cantidad de busquedas random: 2197
+cantidad de busquedas exitosas: 1098
+cantidad de busquedas fallidas: 1099
+Tiempo: 10.0002s

@@ -1,0 +1,11 @@
+Inicio: 0
+cantidad de busquedas random: 2611
+cantidad de busquedas exitosas: 1002
+cantidad de busquedas fallidas: 1609
+Tiempo: 10.0031
+Inicio: 0
+cantidad de busquedas random: 2686
+cantidad de busquedas exitosas: 1338
+cantidad de busquedas fallidas: 1348
+Tiempo: 10.0012
+

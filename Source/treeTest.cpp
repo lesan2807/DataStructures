@@ -27,6 +27,8 @@ int main(int argc, char const *argv[]){
 	int exitosas = 0;
 	int fallidas = 0;
 	node<int> *temp;
+	
+	
 	//Llenado de lista random
 	for(int i = 0; i < SIZE; i++){
 		node<int> *n = new node<int>(getRandom(rng, 0, 2 * SIZE));
@@ -52,12 +54,13 @@ int main(int argc, char const *argv[]){
 	cout << "Tiempo: " << duracion << "s" << endl;
 	
 	//Inicializacion de lista lineal
-	for(int i = 0; i < SIZE; i++){
+	arbol.treeInsert(new node<int>(0));
+	node<int> *p = arbol.getRoot();
+	for(int i = 1; i < SIZE; i++){
 		node<int> *n = new node<int>(i);
-		arbol.treeInsert(n);
-		cout << i * 100 / SIZE << "%\r" << flush;
+		arbol.quickInser(p, n);
+		p = n;
 	}
-
 	//Iniciodel timer 10 sec
 	inicio = clock();
 	exitosas = 0;
@@ -65,7 +68,7 @@ int main(int argc, char const *argv[]){
 	duracion = 0;
 	busquedas = 0;
 	while(duracion < 10){
-		temp = arbol.treeSearch(getRandom(rng, 0, 2 * SIZE));
+		temp = arbol.iterativeTreeSearch(getRandom(rng, 0, 2 * SIZE));
 		busquedas++;
 		if(temp != NULL){
 			exitosas++;
@@ -79,6 +82,5 @@ int main(int argc, char const *argv[]){
 	cout << "cantidad de busquedas exitosas: " << exitosas << endl;
 	cout << "cantidad de busquedas fallidas: " << fallidas << endl;
 	cout << "Tiempo: " << duracion << "s" << endl;
-
 	return 0;
 }
